@@ -1,0 +1,10 @@
+Check transition animation for moving rectangles and fix it (use rect[i].getTranslationX() or something instead of i*30)
+
+Add:
+Scramble button
+Drop-down list of algorithms to choose
+
+"niceify":
+Rectangles so they'd be positioned nicely (once their animation is fixed)
+Code, seperate what's needed into different classes/methods
+Buttons/drop-down list once they're added
