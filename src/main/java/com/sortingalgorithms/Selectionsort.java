@@ -53,8 +53,8 @@ public class Selectionsort {
 
             // If the minValueIndex didn't change then the value is already in its correct spot
             if(minValueIndex > i){
-                sq.getChildren().add(as.animationSetup(rect, i, minValueIndex*15-(values.size()-values.size()/2)*15, s));
-                sq2.getChildren().add(as.animationSetup(rect, minValueIndex, i*15-(values.size()-values.size()/2)*15, s));
+                sq.getChildren().add(as.animationSetup(rect.get(i), minValueIndex*15-(values.size()-values.size()/2)*15, s));
+                sq2.getChildren().add(as.animationSetup(rect.get(minValueIndex), i*15-(values.size()-values.size()/2)*15, s));
 
                 Rectangle tempRect = rect.get(i);
                 rect.set(i, rect.get(minValueIndex));

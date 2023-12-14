@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public class AnimationSetup {
     // rect - array of rectangles, int a - index of which rectangle  to move, int moveTo - position to move the rectangle to, speed - set animation speed (in milli seconds)
     // Returns Translate Transition object that can be added to sequential transition
-    public TranslateTransition animationSetup(ArrayList<Rectangle> rect, int a, double moveTo, int speed){
+    public TranslateTransition animationSetup(Rectangle rect, double moveTo, int speed){
         TranslateTransition translate = new TranslateTransition(Duration.millis(1000));
         translate.setDelay(Duration.millis(speed));
         translate.setToX(moveTo);
-        translate.setNode(rect.get(a));
+        translate.setNode(rect);
         return translate;
     }
 
@@ -56,6 +56,14 @@ public class AnimationSetup {
         ft.setDelay(Duration.millis(speed));
         ft.setToValue(Color.PURPLE);
         ft.setShape(rect.get(a));
+        return ft;
+    }
+
+    public FillTransition changeColor(Rectangle rect, int speed, Color c) {
+        FillTransition ft = new FillTransition();
+        ft.setDelay(Duration.millis(speed));
+        ft.setToValue(c);
+        ft.setShape(rect);
         return ft;
     }
 }

@@ -22,18 +22,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SortingAlgorithmVisualiser extends Application {
 
+    static public SequentialTransition sq = new SequentialTransition();
+    static public SequentialTransition sq2 = new SequentialTransition();
+
     private ArrayList<Integer> values = new ArrayList<>();
     private ArrayList<Rectangle> rect = new ArrayList<>();
-    private SequentialTransition sq = new SequentialTransition();
-    private SequentialTransition sq2 = new SequentialTransition();
     private ComboBox algorithmSelect = new ComboBox();
     private Text text = new Text();
     boolean isSorted = false;
-    int s;
+    int speed;
 
     @Override
     public void start(Stage stage){
@@ -131,36 +131,36 @@ public class SortingAlgorithmVisualiser extends Application {
         topPane.getChildren().add(sortButton);
 
         // Sort Button functionality
-        s = 1000;
+        this.speed = 1000;
         sortButton.setOnAction(actionEvent -> {
             if(!isSorted) {
                 sq.getChildren().clear();
                 sq2.getChildren().clear();
                 switch (speed.getValue().toString()) {
                     case "Fast":
-                        s = 100;
+                        this.speed = 100;
                         break;
                     case "Medium":
-                        s = 1500;
+                        this.speed = 1500;
                         break;
                     case "Slow":
-                        s = 4000;
+                        this.speed = 4000;
                         break;
                     default:
-                        s = 1000;
+                        this.speed = 1000;
                         break;
                 }
                 String v = algorithmSelect.getValue().toString();
                 switch (v) {
                     case "Bubble Sort":
 
-                        new bubbleSort().bubbleSort(values, rect, sq, sq2, s);
+                        new bubbleSort().bubbleSort(values, rect, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;
                         break;
                     case "Quicksort":
-                        new QuickSort().quickSort(values, rect, 0, values.size() - 1, sq, sq2, s);
+                        new QuickSort().quickSort(values, rect, 0, values.size() - 1, sq, sq2, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;
@@ -170,7 +170,7 @@ public class SortingAlgorithmVisualiser extends Application {
 //                    new Mergesort().mergeSort(values, rect, 0, values.size()-1);
 //                    break;
                     case "Selection sort":
-                        new Selectionsort().selectionSort(values, rect, sq, sq2, s);
+                        new Selectionsort().selectionSort(values, rect, sq, sq2, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;

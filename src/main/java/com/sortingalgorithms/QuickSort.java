@@ -52,8 +52,8 @@ public class QuickSort {
             if(i >= j) return j;
 
             // Animation for rectangle swap
-            sq.getChildren().add(as.animationSetup(rect, i, j*15-(values.size()-values.size()/2)*15, s));
-            sq2.getChildren().add(as.animationSetup(rect, j, i*15-(values.size()-values.size()/2)*15, s));
+            sq.getChildren().add(as.animationSetup(rect.get(i), j*15-(values.size()-values.size()/2)*15, s));
+            sq2.getChildren().add(as.animationSetup(rect.get(j), i*15-(values.size()-values.size()/2)*15, s));
 
             // Changing the swapped rectangles back to black
             sq.getChildren().add(as.changeToBlack(rect, i, s));
