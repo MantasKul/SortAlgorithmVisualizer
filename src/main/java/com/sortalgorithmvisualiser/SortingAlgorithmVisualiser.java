@@ -154,7 +154,7 @@ public class SortingAlgorithmVisualiser extends Application {
                 switch (v) {
                     case "Bubble Sort":
 
-                        new bubbleSort().bubbleSort(values, rect, this.speed);
+                        new bubbleSort().sort(values, rect, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;

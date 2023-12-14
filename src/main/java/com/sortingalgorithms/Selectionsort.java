@@ -2,14 +2,16 @@ package com.sortingalgorithms;
 
 import com.sortalgorithmvisualiser.AnimationSetup;
 
+import com.sortalgorithmvisualiser.SortingAlgorithmVisualiser;
 import javafx.animation.SequentialTransition;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
 public class Selectionsort {
     AnimationSetup as = new AnimationSetup();
-    public void selectionSort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int s){
+    public void selectionSort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int speed){
         // Recursion version
         //        int minValueIndex = start;
 //
@@ -29,32 +31,24 @@ public class Selectionsort {
 
         for(int i = 0; i < values.size()-1; i++){
             minValueIndex = i;
-            sq.getChildren().add(as.changeToPurple(rect, minValueIndex, s));
-            sq2.getChildren().add(as.changeToPurple(rect, minValueIndex, s));
+            changeColor(rect.get(minValueIndex), speed, Color.PURPLE);
             for(int j = i+1; j < values.size(); j++){
-
-                sq.getChildren().add(as.changeToBlue(rect, j, s));
-                sq2.getChildren().add(as.changeToBlue(rect, j, s));
+                changeColor(rect.get(j), speed, Color.BLUE);
 
                 if(values.get(j) < values.get(minValueIndex)) {
-                    sq.getChildren().add(as.changeToBlack(rect, minValueIndex, s));
-                    sq2.getChildren().add(as.changeToBlack(rect, minValueIndex, s));
+                    changeColor(rect.get(minValueIndex), speed, Color.BLACK);
                     minValueIndex = j;
-                    sq.getChildren().add(as.changeToPurple(rect, minValueIndex, s));
-                    sq2.getChildren().add(as.changeToPurple(rect, minValueIndex, s));
+                    changeColor(rect.get(minValueIndex), speed, Color.PURPLE);
                 }
                 else{
-                    sq.getChildren().add(as.changeToBlack(rect, j, s));
-                    sq2.getChildren().add(as.changeToBlack(rect, j, s));
+                    changeColor(rect.get(j), speed, Color.BLACK);
                 }
             }
-            sq.getChildren().add(as.changeToBlack(rect, minValueIndex, s));
-            sq2.getChildren().add(as.changeToBlack(rect, minValueIndex, s));
+            changeColor(rect.get(minValueIndex), speed, Color.BLACK);
 
             // If the minValueIndex didn't change then the value is already in its correct spot
             if(minValueIndex > i){
-                sq.getChildren().add(as.animationSetup(rect.get(i), minValueIndex*15-(values.size()-values.size()/2)*15, s));
-                sq2.getChildren().add(as.animationSetup(rect.get(minValueIndex), i*15-(values.size()-values.size()/2)*15, s));
+                animationSetup(rect.get(i), rect.get(minValueIndex), minValueIndex, values.size(), speed, i);
 
                 Rectangle tempRect = rect.get(i);
                 rect.set(i, rect.get(minValueIndex));
@@ -65,8 +59,15 @@ public class Selectionsort {
                 values.set(minValueIndex, temp);
             }
         }
+    }
 
-        sq.play();
-        sq2.play();
+    public void animationSetup(Rectangle rectA, Rectangle rectB, int minValueIndex, int values, int speed, int i) {
+        SortingAlgorithmVisualiser.sq.getChildren().add(as.animationSetup(rectA, minValueIndex*15-(values-values/2)*15, speed));
+        SortingAlgorithmVisualiser.sq2.getChildren().add(as.animationSetup(rectB, i*15-(values-values/2)*15, speed));
+    }
+
+    public void changeColor(Rectangle rect, int speed, Color color){
+        SortingAlgorithmVisualiser.sq.getChildren().add(as.changeColor(rect, speed, color));
+        SortingAlgorithmVisualiser.sq2.getChildren().add(as.changeColor(rect, speed, color));
     }
 }
