@@ -160,7 +160,7 @@ public class SortingAlgorithmVisualiser extends Application {
                         isSorted = true;
                         break;
                     case "Quicksort":
-                        new QuickSort().quickSort(values, rect, 0, values.size() - 1, sq, sq2, this.speed);
+                        new QuickSort().sort(values, rect, 0, values.size() - 1, sq, sq2, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;
@@ -170,7 +170,7 @@ public class SortingAlgorithmVisualiser extends Application {
 //                    new Mergesort().mergeSort(values, rect, 0, values.size()-1);
 //                    break;
                     case "Selection sort":
-                        new Selectionsort().selectionSort(values, rect, sq, sq2, this.speed);
+                        new Selectionsort().sort(values, rect, sq, sq2, this.speed);
                         sq.play();
                         sq2.play();
                         isSorted = true;

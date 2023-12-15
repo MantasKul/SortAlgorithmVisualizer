@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Selectionsort {
     AnimationSetup as = new AnimationSetup();
-    public void selectionSort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int speed){
+    public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int speed){
         // Recursion version
         //        int minValueIndex = start;
 //

@@ -19,46 +19,6 @@ public class AnimationSetup {
         return translate;
     }
 
-    public FillTransition changeToBlue(ArrayList<Rectangle> rect, int a, int speed){
-        FillTransition ft = new FillTransition();
-        ft.setDelay(Duration.millis(speed));
-        ft.setToValue(Color.BLUE);
-        ft.setShape(rect.get(a));
-        return ft;
-    }
-
-    public FillTransition changeToBlack(ArrayList<Rectangle> rect, int a, int speed){
-        FillTransition ft = new FillTransition();
-        ft.setDelay(Duration.millis(speed));
-        ft.setToValue(Color.BLACK);
-        ft.setShape(rect.get(a));
-        return ft;
-    }
-
-    public FillTransition changeToGreen(ArrayList<Rectangle> rect, int a, int speed){
-        FillTransition ft = new FillTransition();
-        ft.setDelay(Duration.millis(speed));
-        ft.setToValue(Color.GREEN);
-        ft.setShape(rect.get(a));
-        return ft;
-    }
-
-    public FillTransition changeToRed(ArrayList<Rectangle> rect, int a, int speed){
-        FillTransition ft = new FillTransition();
-        ft.setDelay(Duration.millis(speed));
-        ft.setToValue(Color.RED);
-        ft.setShape(rect.get(a));
-        return ft;
-    }
-
-    public FillTransition changeToPurple(ArrayList<Rectangle> rect, int a, int speed){
-        FillTransition ft = new FillTransition();
-        ft.setDelay(Duration.millis(speed));
-        ft.setToValue(Color.PURPLE);
-        ft.setShape(rect.get(a));
-        return ft;
-    }
-
     public FillTransition changeColor(Rectangle rect, int speed, Color c) {
         FillTransition ft = new FillTransition();
         ft.setDelay(Duration.millis(speed));
