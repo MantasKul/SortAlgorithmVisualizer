@@ -1,4 +1,7 @@
 # SortAlgorithmVisualizer
+
+Built some time ago. Returned to this project and right now I'm cleaning the code up, fixing any issues left, and planning to go through the QA process to ensure quality.
+
 Visualizing various Sorting Algorithms. Written in Java, using JavaFX for UI.
 
 You can find the executable in releases (https://github.com/MantasKul/SortAlgorithmVisualizer/releases/tag/Executable). Simply double-click on "SortAlgorithmVisualiser.jar" after downloading it to launch it.
