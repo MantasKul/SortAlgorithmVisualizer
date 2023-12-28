@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class QuickSort {
     int pivot;
-    AnimationSetup as = new AnimationSetup();
+    AnimationSetup animationSetup = new AnimationSetup();
     public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, SequentialTransition sq, SequentialTransition sq2, int s){
         if(low < high){
             int partition = partition(values, rect, low, high, sq, sq2, s);
@@ -24,7 +24,8 @@ public class QuickSort {
         pivot = values.get((int)Math.floor(high+low)/2);
 
         // Coloring the pivot purple
-        changeColor(rect.get((int)Math.floor(high+low)/2), rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+        animationSetup.sequenceTransition0ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+        animationSetup.sequenceTransition1ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
 
         int i = low - 1;
         int j = high + 1;
@@ -33,31 +34,36 @@ public class QuickSort {
             // Finding bigger rectangle left of the pivot
             do{
                 if(i >= 0 && i < values.size()){
-                    changeColor(rect.get(i), rect.get(i), s, Color.BLACK);
+                    animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLACK);
+                    animationSetup.sequenceTransition1ColorSetup(rect.get(i), s, Color.BLACK);
                 }
                 i++;
-                changeColor(rect.get(i), rect.get(i), s, Color.BLUE);
+                animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLUE);
+                animationSetup.sequenceTransition1ColorSetup(rect.get(i), s, Color.BLUE);
             } while (values.get(i) < pivot);
             // Finding a smaller rectangle on the right of the pivot
             do{
                 if(j >= 0 && j < values.size()){
-                    changeColor(rect.get(j), rect.get(j), s, Color.BLACK);
+                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), s, Color.BLACK);
+                    animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
                 }
                 j--;
-                changeColor(rect.get(j), rect.get(j), s, Color.BLACK);
+                animationSetup.sequenceTransition0ColorSetup(rect.get(j), s, Color.BLACK);
+                animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
             } while (values.get(j) > pivot);
             if(i >= j) return j;
 
             // Animation for rectangle swap
-            animationSetup(rect.get(i), rect.get(j), j*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, s);
+            animationSetup.sequenceTransitionSetup(rect.get(i), rect.get(j), j*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, s);
 
             // Changing the swapped rectangles back to black
-            changeColor(rect.get(i), rect.get(i), s, Color.BLACK);
-            changeColor(rect.get(j), rect.get(j), s, Color.BLACK);
+            animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLACK);
+            animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
 
 
             // Coloring the pivot purple
-            changeColor(rect.get((int)Math.floor(high+low)/2), rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+            animationSetup.sequenceTransition0ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+            animationSetup.sequenceTransition1ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
 
 
             int temp = values.get(i);
@@ -70,13 +76,13 @@ public class QuickSort {
         }
     }
 
-    public void animationSetup(Rectangle rectA, Rectangle rectB, float moveToA, float moveToB,int s) {
-        SortingAlgorithmVisualiser.sq.getChildren().add(as.animationSetup(rectA, moveToA, s));
-        SortingAlgorithmVisualiser.sq2.getChildren().add(as.animationSetup(rectB, moveToB, s));
-    }
+//    public void animationSetup(Rectangle rectA, Rectangle rectB, float moveToA, float moveToB,int s) {
+//        SortingAlgorithmVisualiser.sq.getChildren().add(as.animationSetup(rectA, moveToA, s));
+//        SortingAlgorithmVisualiser.sq2.getChildren().add(as.animationSetup(rectB, moveToB, s));
+//    }
 
-    public void changeColor(Rectangle rectA, Rectangle rectB, int speed, Color color){
-        SortingAlgorithmVisualiser.sq.getChildren().add(as.changeColor(rectA, speed, color));
-        SortingAlgorithmVisualiser.sq2.getChildren().add(as.changeColor(rectB, speed, color));
-    }
+//    public void changeColor(Rectangle rectA, Rectangle rectB, int speed, Color color){
+//        SortingAlgorithmVisualiser.sq.getChildren().add(as.changeColor(rectA, speed, color));
+//        SortingAlgorithmVisualiser.sq2.getChildren().add(as.changeColor(rectB, speed, color));
+//    }
 }

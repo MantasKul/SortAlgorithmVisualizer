@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 public class Selectionsort {
-    AnimationSetup as = new AnimationSetup();
+    AnimationSetup animationSetup = new AnimationSetup();
     public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int speed){
         // Recursion version
         //        int minValueIndex = start;
@@ -31,24 +31,30 @@ public class Selectionsort {
 
         for(int i = 0; i < values.size()-1; i++){
             minValueIndex = i;
-            changeColor(rect.get(minValueIndex), speed, Color.PURPLE);
+            animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
+            animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
             for(int j = i+1; j < values.size(); j++){
-                changeColor(rect.get(j), speed, Color.BLUE);
+                animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLUE);
+                animationSetup.sequenceTransition1ColorSetup(rect.get(j), speed, Color.BLUE);
 
                 if(values.get(j) < values.get(minValueIndex)) {
-                    changeColor(rect.get(minValueIndex), speed, Color.BLACK);
+                    animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
+                    animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
                     minValueIndex = j;
-                    changeColor(rect.get(minValueIndex), speed, Color.PURPLE);
+                    animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
+                    animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
                 }
                 else{
-                    changeColor(rect.get(j), speed, Color.BLACK);
+                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLACK);
+                    animationSetup.sequenceTransition1ColorSetup(rect.get(j), speed, Color.BLACK);
                 }
             }
-            changeColor(rect.get(minValueIndex), speed, Color.BLACK);
+            animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
+            animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
 
             // If the minValueIndex didn't change then the value is already in its correct spot
             if(minValueIndex > i){
-                animationSetup(rect.get(i), rect.get(minValueIndex), minValueIndex, values.size(), speed, i);
+                animationSetup.sequenceTransitionSetup(rect.get(i), rect.get(minValueIndex), minValueIndex*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, speed);
 
                 Rectangle tempRect = rect.get(i);
                 rect.set(i, rect.get(minValueIndex));
@@ -59,15 +65,5 @@ public class Selectionsort {
                 values.set(minValueIndex, temp);
             }
         }
-    }
-
-    public void animationSetup(Rectangle rectA, Rectangle rectB, int minValueIndex, int values, int speed, int i) {
-        SortingAlgorithmVisualiser.sq.getChildren().add(as.animationSetup(rectA, minValueIndex*15-(values-values/2)*15, speed));
-        SortingAlgorithmVisualiser.sq2.getChildren().add(as.animationSetup(rectB, i*15-(values-values/2)*15, speed));
-    }
-
-    public void changeColor(Rectangle rect, int speed, Color color){
-        SortingAlgorithmVisualiser.sq.getChildren().add(as.changeColor(rect, speed, color));
-        SortingAlgorithmVisualiser.sq2.getChildren().add(as.changeColor(rect, speed, color));
     }
 }
