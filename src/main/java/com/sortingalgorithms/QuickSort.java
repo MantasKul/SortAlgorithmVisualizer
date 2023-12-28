@@ -75,14 +75,4 @@ public class QuickSort {
             rect.set(j, tempRect);
         }
     }
-
-//    public void animationSetup(Rectangle rectA, Rectangle rectB, float moveToA, float moveToB,int s) {
-//        SortingAlgorithmVisualiser.sq.getChildren().add(as.animationSetup(rectA, moveToA, s));
-//        SortingAlgorithmVisualiser.sq2.getChildren().add(as.animationSetup(rectB, moveToB, s));
-//    }
-
-//    public void changeColor(Rectangle rectA, Rectangle rectB, int speed, Color color){
-//        SortingAlgorithmVisualiser.sq.getChildren().add(as.changeColor(rectA, speed, color));
-//        SortingAlgorithmVisualiser.sq2.getChildren().add(as.changeColor(rectB, speed, color));
-//    }
 }
