@@ -15,13 +15,9 @@ public class AnimationSetup {
         SortingAlgorithmVisualiser.sq2.getChildren().add(animationSetup(rectB, moveToB, speed));
     }
 
-    public void sequenceTransition0ColorSetup(Rectangle rect, int speed, Color color) {
-        SortingAlgorithmVisualiser.sq.getChildren().add(changeColor(rect, speed, color));
-        //SortingAlgorithmVisualiser.sq2.getChildren().add(changeColor(rectB, speed, color));
-    }
-    public void sequenceTransition1ColorSetup(Rectangle rect, int speed, Color color) {
-        //SortingAlgorithmVisualiser.sq.getChildren().add(changeColor(rectA, speed, color));
-        SortingAlgorithmVisualiser.sq2.getChildren().add(changeColor(rect, speed, color));
+    public void sequenceTransitionColorSetup(Rectangle rect0, Rectangle rect1, int speed, Color color0, Color color1) {
+        SortingAlgorithmVisualiser.sq.getChildren().add(changeColor(rect0, speed, color0));
+        SortingAlgorithmVisualiser.sq2.getChildren().add(changeColor(rect1, speed, color1));
     }
 
     // rect - rectangle to move, moveTo - coordinate to move rectangle to, speed - animation play time in ms

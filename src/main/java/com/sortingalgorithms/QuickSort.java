@@ -11,21 +11,22 @@ import java.util.ArrayList;
 public class QuickSort {
     int pivot;
     AnimationSetup animationSetup = new AnimationSetup();
-    public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, SequentialTransition sq, SequentialTransition sq2, int s){
+    public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, SequentialTransition sq, SequentialTransition sq2, int speed){
         if(low < high){
-            int partition = partition(values, rect, low, high, sq, sq2, s);
-            sort(values, rect, low, partition, sq, sq2, s);
-            sort(values, rect, partition+1, high, sq, sq2, s);
+            int partition = partition(values, rect, low, high, sq, sq2, speed);
+            sort(values, rect, low, partition, sq, sq2, speed);
+            sort(values, rect, partition+1, high, sq, sq2, speed);
         }
     }
 
-    public int partition(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, SequentialTransition sq, SequentialTransition sq2, int s){
+    public int partition(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, SequentialTransition sq, SequentialTransition sq2, int speed){
         // Pivot is the values that other values will be compared to
         pivot = values.get((int)Math.floor(high+low)/2);
 
         // Coloring the pivot purple
-        animationSetup.sequenceTransition0ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
-        animationSetup.sequenceTransition1ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+//        animationSetup.sequenceTransition0ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+//        animationSetup.sequenceTransition1ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+        animationSetup.sequenceTransitionColorSetup(rect.get((int)Math.floor(high+low)/2), rect.get((int)Math.floor(high+low)/2), speed, Color.PURPLE, Color.PURPLE);
 
         int i = low - 1;
         int j = high + 1;
@@ -34,36 +35,30 @@ public class QuickSort {
             // Finding bigger rectangle left of the pivot
             do{
                 if(i >= 0 && i < values.size()){
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLACK);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(i), s, Color.BLACK);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(i), rect.get(i), speed, Color.BLACK, Color.BLACK);
                 }
                 i++;
-                animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLUE);
-                animationSetup.sequenceTransition1ColorSetup(rect.get(i), s, Color.BLUE);
+                animationSetup.sequenceTransitionColorSetup(rect.get(i), rect.get(i), speed, Color.BLUE, Color.BLUE);
             } while (values.get(i) < pivot);
             // Finding a smaller rectangle on the right of the pivot
             do{
                 if(j >= 0 && j < values.size()){
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), s, Color.BLACK);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j), speed, Color.BLACK, Color.BLACK);
                 }
                 j--;
-                animationSetup.sequenceTransition0ColorSetup(rect.get(j), s, Color.BLACK);
-                animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
+                animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j), speed, Color.BLACK, Color.BLACK);
             } while (values.get(j) > pivot);
             if(i >= j) return j;
 
             // Animation for rectangle swap
-            animationSetup.sequenceTransitionSetup(rect.get(i), rect.get(j), j*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, s);
+            animationSetup.sequenceTransitionSetup(rect.get(i), rect.get(j), j*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, speed);
 
             // Changing the swapped rectangles back to black
-            animationSetup.sequenceTransition0ColorSetup(rect.get(i), s, Color.BLACK);
-            animationSetup.sequenceTransition1ColorSetup(rect.get(j), s, Color.BLACK);
+            animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j), speed, Color.BLACK, Color.BLACK);
 
 
             // Coloring the pivot purple
-            animationSetup.sequenceTransition0ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
-            animationSetup.sequenceTransition1ColorSetup(rect.get((int)Math.floor(high+low)/2), s, Color.PURPLE);
+            animationSetup.sequenceTransitionColorSetup(rect.get((int)Math.floor(high+low)/2), rect.get((int)Math.floor(high+low)/2), speed, Color.PURPLE, Color.PURPLE);
 
 
             int temp = values.get(i);

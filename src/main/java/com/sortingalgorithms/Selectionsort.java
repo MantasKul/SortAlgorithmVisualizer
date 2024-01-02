@@ -31,26 +31,20 @@ public class Selectionsort {
 
         for(int i = 0; i < values.size()-1; i++){
             minValueIndex = i;
-            animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
-            animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
+            animationSetup.sequenceTransitionColorSetup(rect.get(minValueIndex), rect.get(minValueIndex), speed, Color.PURPLE, Color.PURPLE);
             for(int j = i+1; j < values.size(); j++){
-                animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLUE);
-                animationSetup.sequenceTransition1ColorSetup(rect.get(j), speed, Color.BLUE);
+                animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j), speed, Color.BLUE, Color.BLUE);
 
                 if(values.get(j) < values.get(minValueIndex)) {
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(minValueIndex), rect.get(minValueIndex), speed, Color.BLACK, Color.BLACK);
                     minValueIndex = j;
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.PURPLE);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(minValueIndex), rect.get(minValueIndex), speed, Color.PURPLE, Color.PURPLE);
                 }
                 else{
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLACK);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(j), speed, Color.BLACK);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j), speed, Color.BLACK, Color.BLACK);
                 }
             }
-            animationSetup.sequenceTransition0ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
-            animationSetup.sequenceTransition1ColorSetup(rect.get(minValueIndex), speed, Color.BLACK);
+            animationSetup.sequenceTransitionColorSetup(rect.get(minValueIndex), rect.get(minValueIndex), speed, Color.BLACK, Color.BLACK);
 
             // If the minValueIndex didn't change then the value is already in its correct spot
             if(minValueIndex > i){

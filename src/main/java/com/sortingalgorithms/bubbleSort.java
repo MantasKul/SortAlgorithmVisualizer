@@ -15,8 +15,7 @@ public class bubbleSort {
         for(int i = 0; i < values.size(); i++) {
             for (int j = 0; j < values.size() - 1; j++) {
                 // Highlighting rectangle that are being currently compared blue
-                animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLUE);
-                animationSetup.sequenceTransition1ColorSetup(rect.get(j+1), speed, Color.BLUE);
+                animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j+1), speed, Color.BLUE, Color.BLUE);
                 if (values.get(j) > values.get(j + 1)) {
                     // Swapping values in the array
                     int temp = values.get(j);
@@ -24,8 +23,7 @@ public class bubbleSort {
                     values.set(j+1, temp);
 
                     // Animation setup
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.GREEN);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(j+1), speed, Color.GREEN);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j+1), speed, Color.GREEN, Color.GREEN);
                     animationSetup.sequenceTransitionSetup(rect.get(j), rect.get(j+1), (j+1)*15-(values.size()-values.size()/2)*15, j*15-(values.size()-values.size()/2)*15, speed);
 
                     // Swapping rectangle objects
@@ -35,12 +33,10 @@ public class bubbleSort {
                 }
                 else {
                     // If the rectangles aren't going to be switched their colors are changed to red
-                    animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.RED);
-                    animationSetup.sequenceTransition1ColorSetup(rect.get(j+1), speed, Color.RED);
+                    animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j+1), speed, Color.RED, Color.RED);
                 }
                 // Changes rectangles color back to black
-                animationSetup.sequenceTransition0ColorSetup(rect.get(j), speed, Color.BLACK);
-                animationSetup.sequenceTransition1ColorSetup(rect.get(j+1), speed, Color.BLACK);
+                animationSetup.sequenceTransitionColorSetup(rect.get(j), rect.get(j+1), speed, Color.BLACK, Color.BLACK);
             }
         }
     }
