@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -105,7 +106,7 @@ public class UIBuilder {
             isSorted = true;
             break;
           case "Quicksort":
-            new QuickSort().sort(values, rect, 0, values.size() - 1, SortingAlgorithmVisualiser.sq, SortingAlgorithmVisualiser.sq2, this.speed);
+            new QuickSort().sort(values, rect, 0, values.size() - 1, this.speed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
@@ -278,7 +279,9 @@ public class UIBuilder {
     for(int i = 0; i < values.size(); i++){                                                 // creating new rectangles
       rect.add(new Rectangle());//rect[i] = new Rectangle();
       rect.get(i).setTranslateY((values.get(i)/2)-values.get(i)+150);
-      rect.get(i).setWidth(15);
+      rect.get(i).setWidth(13);
+      rect.get(i).setStrokeWidth(2);
+      rect.get(i).setStroke(Color.BLACK);
       rect.get(i).setTranslateX(i*15-(values.size()-values.size()/2)*15);
       rect.get(i).setHeight(values.get(i));
       centerPane.getChildren().add(rect.get(i));

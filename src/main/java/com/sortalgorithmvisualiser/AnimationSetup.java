@@ -1,6 +1,7 @@
 package com.sortalgorithmvisualiser;
 
 import javafx.animation.FillTransition;
+import javafx.animation.StrokeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,6 +21,11 @@ public class AnimationSetup {
         SortingAlgorithmVisualiser.sq2.getChildren().add(changeColor(rect1, speed, color1));
     }
 
+    public void sequenceTransitionBorderColor(Rectangle rect0, Rectangle rect1, int speed, Color color0, Color color1) {
+        SortingAlgorithmVisualiser.sq.getChildren().add(changeStroke(rect0, speed, color0));
+        SortingAlgorithmVisualiser.sq2.getChildren().add(changeStroke(rect1, speed, color1));
+    }
+
     // rect - rectangle to move, moveTo - coordinate to move rectangle to, speed - animation play time in ms
     // Returns Translate Transition object that can be added to sequential transition
     public TranslateTransition animationSetup(Rectangle rect, double moveTo, int speed){
@@ -36,5 +42,14 @@ public class AnimationSetup {
         ft.setToValue(c);
         ft.setShape(rect);
         return ft;
+    }
+
+    public StrokeTransition changeStroke(Rectangle rect, int speed, Color c) {
+        StrokeTransition st = new StrokeTransition();
+        st.setDelay(Duration.millis(speed));
+        st.setFromValue(Color.BLACK);
+        st.setToValue(c);
+        st.setShape(rect);
+        return st;
     }
 }

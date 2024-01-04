@@ -7,4 +7,4 @@ elements into two sub-arrays, according to
 whether they are less than or greater than the pivot.
 
 Purple rectangle is the pivot used for comparison
-Blue rectangles are the ones that are compared to pivot
+Green/Blue rectangles (left/right) are the ones that are compared to pivot
