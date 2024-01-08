@@ -1,10 +1,6 @@
-# SortAlgorithmVisualizer
-
-Built some time ago. Returned to this project and right now I'm cleaning the code up, fixing any issues left, and planning to go through the QA process to ensure quality.
+# About
 
 Visualizing various Sorting Algorithms. Written in Java, using JavaFX for UI.
-
-You can find the executable in releases (https://github.com/MantasKul/SortAlgorithmVisualizer/releases/tag/Executable). Simply double-click on "SortAlgorithmVisualiser.jar" after downloading it to launch it.
 
 ## Functionallity
 There are different size rectangles that you can shuffle. The visualizer will move those rectangles according to the chosen algorithm while also coloring the rectangles that are currently being compared/moved.
@@ -17,3 +13,10 @@ There are three algorithms implemented:
 - Quick Sort
 - Bubble Sort
 - Selection Sort
+
+# Launching
+- Download the "SortAlgorithmVisualizer_jar.zip" from the release section under releases on the right of the github page  
+    (https://github.com/MantasKul/SortAlgorithmVisualizer/releases/tag/1.1)  
+- Extract the zip folder  
+- Open the extracted folder  
+- Double-click "SortAlgorithmVisualizer.jar"  
