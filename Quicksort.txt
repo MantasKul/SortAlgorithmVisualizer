@@ -6,5 +6,5 @@ from the array and partitioning the other
 elements into two sub-arrays, according to 
 whether they are less than or greater than the pivot.
 
-Purple rectangle is the pivot used for comparison
-Green/Blue rectangles (left/right) are the ones that are compared to pivot
+Rectangle with a purple border is the pivot used for comparison
+Green/Blue rectangles (left/right) are the ones that are compared to the pivot

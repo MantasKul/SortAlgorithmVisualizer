@@ -1,2 +1,0 @@
-Normalize tabbing
-Sepearte UIBuilder class methods into ui building and shuffling/generating/checking/other calc methods
