@@ -50,6 +50,9 @@ public class QuickSort {
             if(i >= j) {
                 // Returning pivot's borders back to black
                 animationSetup.sequenceTransitionBorderColor(pivotRect, pivotRect, speed, Color.BLACK, Color.BLACK);
+
+                // Changing the swapped rectangles back to black
+                animationSetup.sequenceTransitionColorSetup(rect.get(i), rect.get(j), speed, Color.BLACK, Color.BLACK);
                 return j;
             }
 
