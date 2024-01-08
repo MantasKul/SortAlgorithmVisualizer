@@ -253,6 +253,7 @@ public class UIBuilder {
     leftPane.setMinWidth(300);
 
     text.setText(getAlgorithmDescription("BubbleSort"));
+    text.setWrappingWidth(300);
     leftPane.getChildren().add(text);
 
     return leftPane;
