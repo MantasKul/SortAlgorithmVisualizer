@@ -9,8 +9,9 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 public class QuickSort {
-    int pivot;
-    AnimationSetup animationSetup = new AnimationSetup();
+    private int pivot;
+    private final AnimationSetup animationSetup = new AnimationSetup();
+
     public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, int low, int high, int speed){
         if(low < high){
             int partition = partition(values, rect, low, high, speed);
@@ -23,8 +24,9 @@ public class QuickSort {
         // Pivot is the value that other values will be compared to
         pivot = values.get((int)Math.floor(high+low)/2);
 
-        // Coloring the pivot's borders purple
+        // Getting pivot rectangle to be able to reset its colors later
         Rectangle pivotRect = rect.get((int)Math.floor(high+low)/2);
+        // Coloring the pivot's borders purple
         animationSetup.sequenceTransitionBorderColor(pivotRect, pivotRect, speed, Color.PURPLE, Color.PURPLE);
 
         int i = low - 1;
@@ -62,13 +64,23 @@ public class QuickSort {
             // Changing the swapped rectangles back to black
             animationSetup.sequenceTransitionColorSetup(rect.get(i), rect.get(j), speed, Color.BLACK, Color.BLACK);
 
-            int temp = values.get(i);
-            values.set(i, values.get(j));
-            values.set(j, temp);
-
-            Rectangle tempRect = rect.get(i);
-            rect.set(i, rect.get(j));
-            rect.set(j, tempRect);
+            // Swapping values and rectangles
+            swapValues(values, i, j);
+            swapRectangles(rect, i, j);
         }
+    }
+
+    // Helper methods
+
+    public void swapValues(ArrayList<Integer> values, int index1, int index2) {
+        int temp = values.get(index1);
+        values.set(index1, values.get(index2));
+        values.set(index2, temp);
+    }
+
+    public void swapRectangles(ArrayList<Rectangle> rect, int index1, int index2) {
+        Rectangle tempRect = rect.get(index1);
+        rect.set(index1, rect.get(index2));
+        rect.set(index2, tempRect);
     }
 }

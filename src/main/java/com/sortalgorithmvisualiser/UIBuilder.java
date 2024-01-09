@@ -2,7 +2,7 @@ package com.sortalgorithmvisualiser;
 
 import com.sortingalgorithms.QuickSort;
 import com.sortingalgorithms.Selectionsort;
-import com.sortingalgorithms.bubbleSort;
+import com.sortingalgorithms.BubbleSort;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -100,7 +100,7 @@ public class UIBuilder {
         switch (v) {
           case "Bubble Sort":
 
-            new bubbleSort().sort(values, rect, this.speed);
+            new BubbleSort().sort(values, rect, this.speed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
@@ -111,12 +111,8 @@ public class UIBuilder {
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
             break;
-          // Using current rectangles to swap isn't the best way to represent merge sort, the sort algorithm is working but no animation has been implemented
-//                case "Merge sort":
-//                    new Mergesort().mergeSort(values, rect, 0, values.size()-1);
-//                    break;
           case "Selection sort":
-            new Selectionsort().sort(values, rect, SortingAlgorithmVisualiser.sq, SortingAlgorithmVisualiser.sq2, this.speed);
+            new Selectionsort().sort(values, rect, this.speed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
@@ -167,20 +163,21 @@ public class UIBuilder {
     // creating array size slider and its representation
     TextField arraySizeValue = new TextField(); // Label to display array size slider's value
     Slider arraySize = new Slider(10, 50, 10); // min value, max value, default value
-    //arraySizeValue.setTranslateX(-150);
     arraySizeValue.setPrefColumnCount(1);
     arraySizeValue.setPrefSize(30, 20);
     arraySizeValue.setTranslateX(10);
+
     // Listener to prevent user from setting values below 10 and above 100 and non-numeric(int) values
-//        arraySizeValue.textProperty().addListener((observable, oldValue, newValue)->{
-//            if(isNumber(newValue)) {
-//                if (Integer.parseInt(newValue) > 10 || Integer.parseInt(newValue) < 100)
-//                    arraySize.setValue(Integer.parseInt(newValue));
-//            }
-//            else arraySizeValue.textProperty().setValue(oldValue);
-//        });
+    arraySizeValue.textProperty().addListener((observable, oldValue, newValue)->{
+      if(isNumber(newValue)) {
+        if (Integer.parseInt(newValue) > 10 || Integer.parseInt(newValue) < 100)
+          arraySize.setValue(Integer.parseInt(newValue));
+      }
+      else arraySizeValue.textProperty().setValue(oldValue);
+    });
+
     // Changing values on enter press, the listener didn't let setting values properly as you started inputting it would set the value to 10 since the initial value would be <10
-    // If entering <10 set to 10, if entering >100 set to 100 if entering non-number set to 10
+    // If entering <10 set to 10, if entering >50 set to 100 if entering non-number set to 10
     arraySizeValue.setOnKeyPressed(e -> {
       if(e.getCode() == KeyCode.ENTER)
         if(isNumber(arraySizeValue.textProperty().getValue())) {
@@ -190,8 +187,8 @@ public class UIBuilder {
             arraySizeValue.textProperty().setValue("10");
             arraySize.setValue(10);
           }
-          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) > 100) {
-            arraySizeValue.textProperty().setValue("100");
+          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) > 50) {
+            arraySizeValue.textProperty().setValue("50");
             arraySize.setValue(100);
           }
         }
@@ -201,8 +198,8 @@ public class UIBuilder {
         }
     });
 
-    arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue())); // Setting value, so it would be shown as soon as the app is launched
-    //arraySize.setTranslateY(-10);
+    // Setting value, so it would be shown as soon as the app is launched
+    arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));
     arraySize.setMaxWidth(300);
     arraySize.valueProperty().addListener((observableValue, number, newNumber) -> {
       arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));  // Setting the label to show slider's value, casting as int, so it wouldn't show .0

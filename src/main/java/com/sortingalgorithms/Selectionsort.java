@@ -10,23 +10,9 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 public class Selectionsort {
-    AnimationSetup animationSetup = new AnimationSetup();
-    public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, SequentialTransition sq, SequentialTransition sq2, int speed){
-        // Recursion version
-        //        int minValueIndex = start;
-//
-//        for(int i = start+1; i < values.size(); i++){
-//            if(values.get(i) < values.get(minValueIndex)) minValueIndex = i;
-//        }
-//
-//        if(minValueIndex > start){
-//            int temp = values.get(start);
-//            values.set(start, values.get(minValueIndex));
-//            values.set(minValueIndex, temp);
-//        }
-//        start++;
-//        if(start < values.size()) selectionSort(values, rect, start);
+    private final AnimationSetup animationSetup = new AnimationSetup();
 
+    public void sort(ArrayList<Integer> values, ArrayList<Rectangle> rect, int speed){
         int minValueIndex;
 
         for(int i = 0; i < values.size()-1; i++){
@@ -50,14 +36,24 @@ public class Selectionsort {
             if(minValueIndex > i){
                 animationSetup.sequenceTransitionSetup(rect.get(i), rect.get(minValueIndex), minValueIndex*15-(values.size()-values.size()/2)*15, i*15-(values.size()-values.size()/2)*15, speed);
 
-                Rectangle tempRect = rect.get(i);
-                rect.set(i, rect.get(minValueIndex));
-                rect.set(minValueIndex, tempRect);
-
-                int temp = values.get(i);
-                values.set(i, values.get(minValueIndex));
-                values.set(minValueIndex, temp);
+                // Swapping values and rectangles
+                swapValues(values, i, minValueIndex);
+                swapRectangles(rect, i, minValueIndex);
             }
         }
+    }
+
+    // Helper methods
+
+    public void swapValues(ArrayList<Integer> values, int index1, int index2) {
+        int temp = values.get(index1);
+        values.set(index1, values.get(index2));
+        values.set(index2, temp);
+    }
+
+    public void swapRectangles(ArrayList<Rectangle> rect, int index1, int index2) {
+        Rectangle tempRect = rect.get(index1);
+        rect.set(index1, rect.get(index2));
+        rect.set(index2, tempRect);
     }
 }
