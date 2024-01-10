@@ -1,3 +1,5 @@
+Currently cleaning up code, I've made this app with little clean code knowledge
+
 # About
 
 Visualizing various Sorting Algorithms. Written in Java, using JavaFX for UI.
