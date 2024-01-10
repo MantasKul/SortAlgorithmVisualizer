@@ -19,9 +19,13 @@ public class SortingAlgorithmVisualiser extends Application {
     public void start(Stage stage){
         // Creating panes, border pane has top/center, inside top part is the button pane, in center rectangles, both ar stack panes
         BorderPane root = new BorderPane();
+        // Top pane contains: algorithm selection dropdown menu, speed selection dropdown menu, sort button, play/pause button
         HBox topPane = uiBuilder.createTopPane();
+        // Center pane contains: ???
         StackPane centerPane = uiBuilder.createCenterPane();
+        // Bottom pane contains: ???
         HBox bottomPane = uiBuilder.createBottomPane(centerPane);
+        // Left pane contains: Algorithm description text
         StackPane leftPane = uiBuilder.createLeftPane();
         root.setTop(topPane);
         root.setCenter(centerPane);
