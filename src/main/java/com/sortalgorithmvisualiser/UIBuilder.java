@@ -21,15 +21,14 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class UIBuilder {
+  private String selectedAlgorithm = "Bubble Sort";
 
-
-  private final ComboBox<String> algorithmSelect = new ComboBox<>();
-  private final ComboBox<String>  speedSelect = new ComboBox<>();
+  private int selectedSpeed = 100;
   private final Button pauseButton = new Button();
   private final Button continueButton = new Button();
   private final TextField arraySizeValue = new TextField(); // Label to display array size slider's value
   private final Slider arraySize = new Slider();
-  private Text text = new Text(); // used in algorithmSelectDropdownMenu and getAlgorithmDescription
+  private Text text = new Text(); // used in algorithmSelectDropdownMenu and getAlgorithmDescription, createLeftPane
   private final ArrayList<Integer> values = new ArrayList<>();
   private final ArrayList<Rectangle> rectangles = new ArrayList<>();
   private boolean isSorted = false;
@@ -58,69 +57,82 @@ public class UIBuilder {
 
   //<editor-fold desc="TOP PANE EXTRACTED STUFF">
   ComboBox<String> algorithmicSelectDropdownMenu() {
-    //ComboBox algorithmSelect = new ComboBox();
+    ComboBox<String> algorithmSelectComboBox = new ComboBox();
 
-    algorithmSelect.getItems().addAll(
+    algorithmSelectComboBox.getItems().addAll(
             "Bubble Sort",
             "Quicksort",
             "Selection sort"
     );
-    algorithmSelect.getSelectionModel().selectFirst();
+
+    // Ensuring the combo box isn't empty when app is launched
+    algorithmSelectComboBox.getSelectionModel().selectFirst();
+
     // listener to change the text on the left pane to describe chosen algorithm
-    algorithmSelect.valueProperty().addListener((ob, ov, nv)->{
+    algorithmSelectComboBox.valueProperty().addListener((ob, ov, nv)->{
       switch (nv) {
-        case "Bubble Sort" -> text.setText(readAlgorithmDescriptionFile("BubbleSort"));
-        case "Quicksort" -> text.setText(readAlgorithmDescriptionFile("Quicksort"));
-        case "Selection sort" -> text.setText(readAlgorithmDescriptionFile("SelectionSort"));
+        case "Bubble Sort" -> {
+          selectedAlgorithm = "Bubble Sort";
+          text.setText(readAlgorithmDescriptionFile("BubbleSort"));
+        }
+        case "Quicksort" -> {
+          selectedAlgorithm = "Quicksort";
+          text.setText(readAlgorithmDescriptionFile("Quicksort"));
+        }
+        case "Selection sort" -> {
+          selectedAlgorithm = "Selection Sort";
+          text.setText(readAlgorithmDescriptionFile("SelectionSort"));
+        }
         default -> System.out.println("Error in switch case");
       }
     });
 
-    return algorithmSelect;
+    return algorithmSelectComboBox;
   }
 
   ComboBox<String> speedSelectDropdownMenu() {
-    //ComboBox speedSelect = new ComboBox();
-    speedSelect.getItems().addAll(
+    ComboBox<String> speedSelectComboBox = new ComboBox();
+    speedSelectComboBox.getItems().addAll(
             "Fast",
             "Medium",
             "Slow"
     );
-    speedSelect.getSelectionModel().selectFirst();
+    speedSelectComboBox.getSelectionModel().selectFirst();
 
-    return speedSelect;
+    speedSelectComboBox.valueProperty().addListener((ob, ov, nv) ->{
+      switch(nv) {
+        case "Medium" -> selectedSpeed = 1500;
+        case "Slow" -> selectedSpeed = 4000;
+        default -> selectedSpeed = 100;           // Default speed is "Fast"
+      }
+    });
+
+    return speedSelectComboBox;
   }
 
   Button sortButton() {
     Button sortButton = new Button("Sort!");
-    this.speed = 1000;
+
     sortButton.setOnAction(actionEvent -> {
       if(!isSorted) {
         SortingAlgorithmVisualiser.sq.getChildren().clear();
         SortingAlgorithmVisualiser.sq2.getChildren().clear();
-        switch (speedSelect.getValue()) {
-          case "Fast" -> this.speed = 100;
-          case "Medium" -> this.speed = 1500;
-          case "Slow" -> this.speed = 4000;
-          default -> this.speed = 1000;
-        }
 
-        String v = algorithmSelect.getValue();
-        switch (v) {
+        switch (selectedAlgorithm) {
           case "Bubble Sort" -> {
-            new BubbleSort().sort(this.values, this.rectangles, this.speed);
+            new BubbleSort().sort(this.values, this.rectangles, selectedSpeed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
           }
           case "Quicksort" -> {
-            new QuickSort().sort(this.values, this.rectangles, 0, this.values.size() - 1, this.speed);
+            new QuickSort().sort(this.values, this.rectangles, 0, this.values.size() - 1, selectedSpeed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
           }
-          case "Selection sort" -> {
-            new Selectionsort().sort(this.values, this.rectangles, this.speed);
+          case "Selection Sort" -> {
+            new Selectionsort().sort(this.values, this.rectangles, selectedSpeed);
             SortingAlgorithmVisualiser.sq.play();
             SortingAlgorithmVisualiser.sq2.play();
             isSorted = true;
@@ -278,7 +290,7 @@ public class UIBuilder {
     return generateArrayButton;
   }
 
-  ArrayList<Rectangle> createRectangles(/*StackPane centerPane*/){
+  ArrayList<Rectangle> createRectangles(){
     //ArrayList<Rectangle> rectangles = new ArrayList<>();
 
     shuffleValuesArray(values);
