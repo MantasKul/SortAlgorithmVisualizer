@@ -22,17 +22,14 @@ import java.util.Scanner;
 
 public class UIBuilder {
   private String selectedAlgorithm = "Bubble Sort";
-
   private int selectedSpeed = 100;
-  private final Button pauseButton = new Button();
-  private final Button continueButton = new Button();
+  private boolean isPaused = false;
   private final TextField arraySizeValue = new TextField(); // Label to display array size slider's value
   private final Slider arraySize = new Slider();
   private Text text = new Text(); // used in algorithmSelectDropdownMenu and getAlgorithmDescription, createLeftPane
   private final ArrayList<Integer> values = new ArrayList<>();
   private final ArrayList<Rectangle> rectangles = new ArrayList<>();
   private boolean isSorted = false;
-  private int speed;
 
 
   HBox createTopPane(){
@@ -44,13 +41,8 @@ public class UIBuilder {
     topPane.getChildren().add(speedSelectDropdownMenu());
     // Adding the sort button
     topPane.getChildren().add(sortButton());
-
-    // Figure out how to have buttons individual methods with returns
-    // Sorting pause and continue buttons
-    pauseButton();
-    continueButton();
-    topPane.getChildren().add(pauseButton);
-    topPane.getChildren().add(continueButton);
+    // Adding pause/play button. Could also be two buttons next to each other instead of one button with changing text
+    topPane.getChildren().add(pausePlayButton());
 
     return topPane;
   }
@@ -146,36 +138,30 @@ public class UIBuilder {
     return sortButton;
   }
 
-  void pauseButton() {
-    // Setting Button properties
-    pauseButton.setText("||");
-    pauseButton.setMinWidth(25);
+  // Could also be two buttons next to each other instead of one button with changing text
+  Button pausePlayButton() {
+    Button pausePlayButton = new Button();
+    pausePlayButton.setText("||");
+    pausePlayButton.setMinWidth(25);
 
-    // Button functionality
-    pauseButton.setOnAction(actionEvent -> {
-      if(SortingAlgorithmVisualiser.sq.getCurrentTime().compareTo(SortingAlgorithmVisualiser.sq.totalDurationProperty().getValue()) < 0){
-        pauseButton.setVisible(false);
-        continueButton.setVisible(true);
+    pausePlayButton.setOnAction(actionEvent -> {
+      boolean paused = isPaused;
+
+      if(!paused) {
+        pausePlayButton.setText(">");
+        isPaused = !isPaused;
         SortingAlgorithmVisualiser.sq.pause();
         SortingAlgorithmVisualiser.sq2.pause();
       }
+      if(paused) {
+        pausePlayButton.setText("||");
+        isPaused = !isPaused;
+        SortingAlgorithmVisualiser.sq.play();
+        SortingAlgorithmVisualiser.sq2.play();
+      }
     });
-  }
 
-  void continueButton() {
-    // Setting Button properties
-    continueButton.setText(">");
-    continueButton.setMinWidth(25);
-    continueButton.setTranslateX(-25);
-    continueButton.setVisible(false);
-
-    // Button functionality
-    continueButton.setOnAction(actionEvent -> {
-      pauseButton.setVisible(true);
-      continueButton.setVisible(false);
-      SortingAlgorithmVisualiser.sq.play();
-      SortingAlgorithmVisualiser.sq2.play();
-    });
+    return pausePlayButton;
   }
   //</editor-fold>
 
