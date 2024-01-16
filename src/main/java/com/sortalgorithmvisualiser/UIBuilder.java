@@ -26,6 +26,7 @@ public class UIBuilder {
   private boolean isPaused = false;
   private final TextField arraySizeValue = new TextField(); // Label to display array size slider's value
   private final Slider arraySize = new Slider();
+  private int arraySizeInt = 10;
   private Text text = new Text(); // used in algorithmSelectDropdownMenu and getAlgorithmDescription, createLeftPane
   private final ArrayList<Integer> values = new ArrayList<>();
   private final ArrayList<Rectangle> rectangles = new ArrayList<>();
@@ -176,73 +177,133 @@ public class UIBuilder {
 
     // If possible should be individual items that are returned
     // Creating slider and text box (editable) representing slider's value
-    createArraySizeSlider();
-    bottomPane.getChildren().add(arraySize);
-    bottomPane.getChildren().add(arraySizeValue);
+    //createArraySizeSliderOLD();
+    bottomPane.getChildren().add(arraySizeSlider());
+    //bottomPane.getChildren().add(arraySizeTextField());
 
     // Creating array of values and rectangles
     // Can't be in the createCenterPane() method for now since it needs arraySize created
     centerPane.getChildren().addAll(createRectangles());
 
     // Creating generate array button (creates array of chosen size and scrambles it)
-    bottomPane.getChildren().add(generateArrayButton(centerPane, arraySize));
+    bottomPane.getChildren().add(generateArrayButton(centerPane));
 
     return bottomPane;
   }
 
   //<editor-fold desc="BOTTOM PANE EXTRACTED STUFF">
-  void createArraySizeSlider() {
-    // creating array size slider and its representation
-    arraySize.setMin(10);
-    arraySize.setMax(50);
-    arraySize.setValue(10);
-    arraySizeValue.setPrefColumnCount(1);
-    arraySizeValue.setPrefSize(30, 20);
-    arraySizeValue.setTranslateX(10);
+//  void createArraySizeSliderOLD() {
+//    // creating array size slider and its representation
+//    arraySize.setMin(10);
+//    arraySize.setMax(50);
+//    arraySize.setValue(10);
+//
+//    arraySizeValue.setPrefColumnCount(1);
+//    arraySizeValue.setPrefSize(30, 20);
+//    arraySizeValue.setTranslateX(10);
+//
+//    // Listener to prevent user from setting values below 10 and above 100 and non-numeric(int) values
+//    arraySizeValue.textProperty().addListener((observable, oldValue, newValue)->{
+//      if(isNumber(newValue)) {
+//        if (Integer.parseInt(newValue) > 10 || Integer.parseInt(newValue) < 100)
+//          arraySize.setValue(Integer.parseInt(newValue));
+//      }
+//      else arraySizeValue.textProperty().setValue(oldValue);
+//    });
+//
+//    // Changing values on enter press, the listener didn't let setting values properly as you started inputting it would set the value to 10 since the initial value would be <10
+//    // If entering <10 set to 10, if entering >50 set to 100 if entering non-number set to 10
+//    arraySizeValue.setOnKeyPressed(e -> {
+//      if(e.getCode() == KeyCode.ENTER)
+//        if(isNumber(arraySizeValue.textProperty().getValue())) {
+//          if (Integer.parseInt(arraySizeValue.textProperty().getValue()) >= 10 || Integer.parseInt(arraySizeValue.textProperty().getValue()) <= 100)
+//            arraySize.setValue(Integer.parseInt(arraySizeValue.textProperty().getValue()));
+//          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) < 10) {
+//            arraySizeValue.textProperty().setValue("10");
+//            arraySize.setValue(10);
+//          }
+//          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) > 50) {
+//            arraySizeValue.textProperty().setValue("50");
+//            arraySize.setValue(100);
+//          }
+//        }
+//        else {
+//          arraySizeValue.textProperty().setValue("10");
+//          arraySize.setValue(10);
+//        }
+//    });
+//
+//    // Setting value, so it would be shown as soon as the app is launched
+//    arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));
+//    arraySize.setMaxWidth(300);
+//    arraySize.valueProperty().addListener((observableValue, number, newNumber) -> {
+//      arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));  // Setting the label to show slider's value, casting as int, so it wouldn't show .0
+//      arraySize.setValue(Math.round(newNumber.doubleValue()));                            // Making so the slider would snap to integer and wouldn't show floats
+//    });
+//    arraySize.setMajorTickUnit(10);
+//    arraySize.setMinorTickCount(1);
+//    arraySize.setShowTickLabels(true);
+//    arraySize.setShowTickMarks(true);
+//  }
 
-    // Listener to prevent user from setting values below 10 and above 100 and non-numeric(int) values
-    arraySizeValue.textProperty().addListener((observable, oldValue, newValue)->{
-      if(isNumber(newValue)) {
-        if (Integer.parseInt(newValue) > 10 || Integer.parseInt(newValue) < 100)
-          arraySize.setValue(Integer.parseInt(newValue));
-      }
-      else arraySizeValue.textProperty().setValue(oldValue);
+  Slider arraySizeSlider() {
+    Slider arraySizeSlider = new Slider();
+    // Setting properties
+    arraySizeSlider.setMin(10);
+    arraySizeSlider.setMax(50);
+    arraySizeSlider.setValue(10);
+    arraySizeSlider.setMajorTickUnit(10);
+    arraySizeSlider.setMinorTickCount(1);
+    arraySizeSlider.setShowTickLabels(true);
+    arraySizeSlider.setShowTickMarks(true);
+
+
+    arraySizeSlider.setMaxWidth(300);
+    arraySizeSlider.valueProperty().addListener((observableValue, number, newNumber) -> {
+      //arraySizeValue.textProperty().setValue(String.valueOf((int)arraySizeSlider.getValue()));  // Setting the label to show slider's value, casting as int, so it wouldn't show .0
+      arraySizeSlider.setValue(Math.round(newNumber.doubleValue()));                            // Making so the slider would snap to integer and wouldn't show floats
+      arraySizeInt = (int) arraySizeSlider.getValue();
     });
 
-    // Changing values on enter press, the listener didn't let setting values properly as you started inputting it would set the value to 10 since the initial value would be <10
-    // If entering <10 set to 10, if entering >50 set to 100 if entering non-number set to 10
-    arraySizeValue.setOnKeyPressed(e -> {
-      if(e.getCode() == KeyCode.ENTER)
-        if(isNumber(arraySizeValue.textProperty().getValue())) {
-          if (Integer.parseInt(arraySizeValue.textProperty().getValue()) >= 10 || Integer.parseInt(arraySizeValue.textProperty().getValue()) <= 100)
-            arraySize.setValue(Integer.parseInt(arraySizeValue.textProperty().getValue()));
-          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) < 10) {
-            arraySizeValue.textProperty().setValue("10");
-            arraySize.setValue(10);
-          }
-          if(Integer.parseInt(arraySizeValue.textProperty().getValue()) > 50) {
-            arraySizeValue.textProperty().setValue("50");
-            arraySize.setValue(100);
-          }
-        }
-        else {
-          arraySizeValue.textProperty().setValue("10");
-          arraySize.setValue(10);
-        }
-    });
-
-    // Setting value, so it would be shown as soon as the app is launched
-    arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));
-    arraySize.setMaxWidth(300);
-    arraySize.valueProperty().addListener((observableValue, number, newNumber) -> {
-      arraySizeValue.textProperty().setValue(String.valueOf((int)arraySize.getValue()));  // Setting the label to show slider's value, casting as int, so it wouldn't show .0
-      arraySize.setValue(Math.round(newNumber.doubleValue()));                            // Making so the slider would snap to integer and wouldn't show floats
-    });
-    arraySize.setMajorTickUnit(10);
-    arraySize.setMinorTickCount(1);
-    arraySize.setShowTickLabels(true);
-    arraySize.setShowTickMarks(true);
+    return arraySizeSlider;
   }
+
+//  TextField arraySizeTextField() {
+//    TextField arraySizeTextField = new TextField();
+//    // Setting properties
+//    arraySizeTextField.setPrefColumnCount(1);
+//    arraySizeTextField.setPrefSize(30, 20);
+//    arraySizeTextField.setTranslateX(10);
+//    // Setting value, so it would be shown as soon as the app is launched
+//    arraySizeTextField.textProperty().setValue(String.valueOf((int)arraySize.getValue()));
+//
+//    // Changing values on enter press, the listener didn't let setting values properly as you started inputting it would set the value to 10 since the initial value would be <10
+//    // If entering <10 set to 10, if entering >50 set to 100 if entering non-number set to 10
+//    arraySizeTextField.setOnKeyPressed(e -> {
+//      if(e.getCode() == KeyCode.ENTER)
+//        if(isNumber(arraySizeTextField.textProperty().getValue())) {
+//          if (Integer.parseInt(arraySizeTextField.textProperty().getValue()) >= 10 || Integer.parseInt(arraySizeTextField.textProperty().getValue()) <= 100)
+//            arraySize.setValue(Integer.parseInt(arraySizeTextField.textProperty().getValue()));
+//          if(Integer.parseInt(arraySizeTextField.textProperty().getValue()) < 10) {
+//            arraySizeTextField.textProperty().setValue("10");
+//            //arraySize.setValue(10);
+//            arraySizeInt = 10;
+//          }
+//          if(Integer.parseInt(arraySizeTextField.textProperty().getValue()) > 50) {
+//            arraySizeValue.textProperty().setValue("50");
+//            //arraySize.setValue(100);
+//            arraySizeInt = 100;
+//          }
+//        }
+//        else {
+//          arraySizeTextField.textProperty().setValue("10");
+//          //arraySize.setValue(10);
+//          arraySizeInt = 10;
+//        }
+//    });
+//
+//    return arraySizeTextField;
+//  }
 
   boolean isNumber(String str){
     if(str == null) return false;
@@ -254,7 +315,7 @@ public class UIBuilder {
     return true;
   }
 
-  Button generateArrayButton(StackPane centerPane, Slider arraySize) {
+  Button generateArrayButton(StackPane centerPane) {
     Button generateArrayButton = new Button("Generate");
     generateArrayButton.setTranslateX(20);
 
@@ -297,8 +358,10 @@ public class UIBuilder {
   void shuffleValuesArray(ArrayList<Integer> values){
     // Clearing values and regenerating, should not be cleared, only shuffled in the future
     values.clear();
-    for(int i = 1; i < (int)arraySize.getValue()+1; i++)
-      values.add(i*(100/(int)arraySize.getValue()+1));
+//    for(int i = 1; i < (int)arraySize.getValue()+1; i++)
+//      values.add(i*(100/(int)arraySize.getValue()+1));
+    for(int i = 1; i < arraySizeInt+1; i++)
+      values.add(i*(100/arraySizeInt+1));
 
     Random rand = new Random();
     for(int i = 0; i < values.size(); i++){
