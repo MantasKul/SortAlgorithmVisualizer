@@ -1,5 +1,6 @@
 package com.sortalgorithmvisualiser;
 
+import com.errorhandling.ErrorHandling;
 import com.sortingalgorithms.QuickSort;
 import com.sortingalgorithms.Selectionsort;
 import com.sortingalgorithms.BubbleSort;
@@ -297,8 +298,6 @@ public class UIBuilder {
 //    return true;
 //  }
 
-
-
   void shuffleValuesArray(ArrayList<Integer> values){
     // Clearing values and regenerating, should not be cleared, only shuffled in the future
     values.clear();
@@ -347,15 +346,14 @@ public class UIBuilder {
     StringBuilder algorithmDescription = new StringBuilder();
 
     try {
-      File file = new File(name+".txt");
+      File file = new File(name+"a.txt");
       Scanner reader = new Scanner(file);
       while(reader.hasNextLine()){
         algorithmDescription.append(reader.nextLine()).append("\n");
       }
       reader.close();
     } catch (FileNotFoundException e) {
-      System.out.println(e);
-      e.printStackTrace();
+      ErrorHandling.errorAlert(e.toString());
     }
 
     return algorithmDescription.toString();
